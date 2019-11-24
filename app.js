@@ -42,6 +42,6 @@ app.use("/api/vote", voteRoute);
 app.use("/api/charge", chargeRoute);
 app.use("/api/party", partyRoute);
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 app.listen(port);
 console.log(`Server listening: ${port}`);
