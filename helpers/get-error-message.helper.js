@@ -29,6 +29,8 @@ module.exports = (error = {}) => {
       return "Photo or Plan is missing";
     case "MissingId":
       return "Candidate ID is missing";
+    case "IdNotFound":
+      return "Id not found";
     default:
       return defaultMessage;
   }

@@ -3,6 +3,7 @@ const httpStatus = require("../helpers/http-status.helper");
 const getErrorMessage = require("../helpers/get-error-message.helper");
 
 const MissingId = { name: "MissingId" };
+const IdNotFound = { name: "IdNotFound" };
 
 exports.get = async (req, res, next) => {
   try {
@@ -28,11 +29,27 @@ exports.post = async (req, res, next) => {
   next();
 };
 
+exports.delete = async (req, res, next) => {
+  try {
+    const { body } = req;
+    const r = await Place.findById(body.id);
+    if (!r) throw IdNotFound;
+    await Place.findByIdAndDelete(body.id);
+    res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json });
+  } catch (error) {
+    const message = getErrorMessage(error);
+    res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
+  }
+  next();
+};
+
 exports.patch = async (req, res, next) => {
   try {
     const { body } = req;
     const { id, ...params } = body;
     if (!id) throw MissingId;
+    const r = await Place.findById(id);
+    if (!r) throw IdNotFound;
     const data = await Place.updateOne({ _id: id }, { $set: params });
     res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json, data });
   } catch (error) {

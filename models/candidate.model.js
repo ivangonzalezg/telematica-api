@@ -13,7 +13,8 @@ const candidateSchema = new Schema(
     identification: {
       required: true,
       type: Number,
-      unique: true
+      unique: true,
+      min: 1
     },
     party: {
       required: true,
