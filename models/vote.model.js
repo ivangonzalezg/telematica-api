@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Candidate = require("./candidate.model");
 const Voter = require("./voter.model");
-const Charge = require("./charge.model");
+const Place = require("./place.model");
 
 const { Schema } = mongoose;
 
@@ -10,7 +10,6 @@ const voteSchema = new Schema(
     voter: {
       required: true,
       type: Schema.Types.ObjectId,
-      unique: true,
       ref: Voter
     },
     candidate: {
@@ -20,8 +19,16 @@ const voteSchema = new Schema(
     },
     charge: {
       required: true,
+      type: String
+    },
+    location: {
+      required: true,
+      type: String
+    },
+    place: {
+      required: true,
       type: Schema.Types.ObjectId,
-      ref: Charge
+      ref: Place
     }
   },
   {
@@ -29,6 +36,8 @@ const voteSchema = new Schema(
     timestamps: true
   }
 );
+
+voteSchema.index({ voter: 1, candidate: 1 }, { unique: 1 });
 
 const Vote = mongoose.model("vote", voteSchema);
 

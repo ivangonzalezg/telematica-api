@@ -18,6 +18,10 @@ const voterSchema = new Schema(
       required: true,
       type: String
     },
+    state: {
+      required: true,
+      type: String
+    },
     place: {
       required: true,
       type: Schema.Types.ObjectId,

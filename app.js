@@ -14,7 +14,8 @@ const voteRoute = require("./routes/vote.route");
 const chargeRoute = require("./routes/charge.route");
 const partyRoute = require("./routes/party.route");
 
-const database = { url: process.env.DB_LOCAL, server: "local" };
+let database = { url: process.env.DB_REMOTE, server: "remote" };
+if (process.argv[2] === "dev") database = { url: process.env.DB_LOCAL, server: "local" };
 
 mongoose.set("useCreateIndex", true);
 mongoose

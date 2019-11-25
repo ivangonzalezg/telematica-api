@@ -25,10 +25,13 @@ const candidateSchema = new Schema(
       required: true,
       type: String
     },
+    location: {
+      required: true,
+      type: String
+    },
     charge: {
       required: true,
-      type: Schema.Types.ObjectId,
-      ref: Charge
+      type: String
     }
   },
   {
