@@ -16,7 +16,7 @@ exports.get = async (req, res, next) => {
       tdata.map(async m => {
         const t = data.filter(d => d.candidate.equals(m.candidate));
         const c = await Candidate.findById(m.candidate).populate("party");
-        return { ...c.toObject(), votes: t.length };
+        return { ...m.toObject(), ...c.toObject(), votes: t.length };
       })
     );
     res.status(httpStatus.OK.code).json({ ...httpStatus.OK.json, data: tdata });

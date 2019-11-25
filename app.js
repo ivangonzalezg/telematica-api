@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const helmet = require("helmet");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const candidateRoute = require("./routes/candidate.route");
@@ -42,6 +43,10 @@ app.use("/api/voter", voterRoute);
 app.use("/api/vote", voteRoute);
 app.use("/api/charge", chargeRoute);
 app.use("/api/party", partyRoute);
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "public/index.html"));
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port);
