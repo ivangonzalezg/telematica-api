@@ -40,7 +40,7 @@ const candidateSchema = new Schema(
   }
 );
 
-candidateSchema.index({ party: 1, charge: 1 }, { unique: 1 });
+candidateSchema.index({ party: 1, charge: 1, location: 1 }, { unique: 1 });
 
 const Candidate = mongoose.model("candidate", candidateSchema);
 

@@ -14,6 +14,8 @@ const voterRoute = require("./routes/voter.route");
 const voteRoute = require("./routes/vote.route");
 const chargeRoute = require("./routes/charge.route");
 const partyRoute = require("./routes/party.route");
+const planRoute = require("./routes/plan.route");
+const photoRoute = require("./routes/photo.route");
 
 let database = { url: process.env.DB_REMOTE, server: "remote" };
 if (process.argv[2] === "dev") database = { url: process.env.DB_LOCAL, server: "local" };
@@ -43,6 +45,8 @@ app.use("/api/voter", voterRoute);
 app.use("/api/vote", voteRoute);
 app.use("/api/charge", chargeRoute);
 app.use("/api/party", partyRoute);
+app.use("/api/plan", planRoute);
+app.use("/api/photo", photoRoute);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "public/index.html"));

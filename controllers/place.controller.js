@@ -5,7 +5,7 @@ const getErrorMessage = require("../helpers/get-error-message.helper");
 const MissingId = { name: "MissingId" };
 const IdNotFound = { name: "IdNotFound" };
 
-exports.get = async (req, res, next) => {
+exports.get = async (req, res) => {
   try {
     const { query } = req;
     const data = await Place.find(query);
@@ -14,10 +14,9 @@ exports.get = async (req, res, next) => {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
   }
-  next();
 };
 
-exports.post = async (req, res, next) => {
+exports.post = async (req, res) => {
   try {
     const { body } = req;
     const data = await new Place(body).save();
@@ -26,10 +25,9 @@ exports.post = async (req, res, next) => {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
   }
-  next();
 };
 
-exports.delete = async (req, res, next) => {
+exports.delete = async (req, res) => {
   try {
     const { body } = req;
     const r = await Place.findById(body.id);
@@ -40,10 +38,9 @@ exports.delete = async (req, res, next) => {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
   }
-  next();
 };
 
-exports.patch = async (req, res, next) => {
+exports.patch = async (req, res) => {
   try {
     const { body } = req;
     const { id, ...params } = body;
@@ -56,5 +53,4 @@ exports.patch = async (req, res, next) => {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
   }
-  next();
 };

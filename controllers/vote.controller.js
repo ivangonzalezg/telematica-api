@@ -7,7 +7,7 @@ const getErrorMessage = require("../helpers/get-error-message.helper");
 const VoterNotFound = { name: "CastError", model: { modelName: "voter" } };
 const CandidateNotFound = { name: "CastError", model: { modelName: "candidate" } };
 
-exports.get = async (req, res, next) => {
+exports.get = async (req, res) => {
   try {
     const { query } = req;
     const data = await Vote.find(query);
@@ -24,10 +24,9 @@ exports.get = async (req, res, next) => {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
   }
-  next();
 };
 
-exports.post = async (req, res, next) => {
+exports.post = async (req, res) => {
   try {
     const { body } = req;
     const v = await Voter.findById(body.voter);
@@ -40,5 +39,4 @@ exports.post = async (req, res, next) => {
     const message = getErrorMessage(error);
     res.status(httpStatus.INTERNAL_SERVER_ERROR.code).json({ ...httpStatus.INTERNAL_SERVER_ERROR.json, message });
   }
-  next();
 };
